@@ -7,10 +7,12 @@ pygame.font.init()
 pygame.display.set_caption('Sorting Visualiser')
 
 # Constants
-MS_DELAY = 0
+ARRAY_SIZES = [50, 125, 200, 250, 500]
+ARRAY_SIZE_INDEX = 2
+ARRAY_SIZE = ARRAY_SIZES[ARRAY_SIZE_INDEX]
+MS_DELAY = 1
 WIDTH = 1000
 HEIGHT = 800
-ARRAY_SIZE = 125
 MIN_VAL = 10
 MAX_VAL = 450
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -51,7 +53,7 @@ def check_quit():
 
 
 def generate_array(min, max, size):
-    return [random.randint(min, max) for i in range(size)]
+    return [random.randint(min, max) for _ in range(size)]
 
 
 def draw_array(arr, sort_position=None, selection_sort_swap_position=None, pivot_position=None):
@@ -71,14 +73,16 @@ def draw_array(arr, sort_position=None, selection_sort_swap_position=None, pivot
     render_multiline_text(USAGE_TEXT, FONT, WHITE, 15, 15)
     pygame.display.flip()
 
+
 def bubble_sort(arr):
     for pass_num in range(len(arr) - 1):
         for i in range(len(arr) - 1 - pass_num):
             if arr[i + 1] < arr[i]:
                 arr[i + 1], arr[i] = arr[i], arr[i + 1]
             check_quit()
-            draw_array(arr, i)
+            draw_array(arr, i+1)
             pygame.time.delay(MS_DELAY)
+
 
 def insertion_sort(arr):
     n = len(arr)  # Get the length of the list A
@@ -196,6 +200,7 @@ def doPartitioning(arr, left_index, right_index, pivot_index):
     arr[new_pivot_index] = pivotVal
     return new_pivot_index
 
+
 array = generate_array(MIN_VAL, MAX_VAL, ARRAY_SIZE)
 running = True
 while running:
@@ -218,15 +223,23 @@ while running:
         elif keys[pygame.K_UP]:
             MS_DELAY += 1
             USAGE_TEXT[7] = f"[up][down] delay: {MS_DELAY}"
+
         elif keys[pygame.K_DOWN]:
-            MS_DELAY -= 1
-            USAGE_TEXT[7] = f"[up][down] delay: {MS_DELAY}"
+            if MS_DELAY > 1:
+                MS_DELAY -= 1
+                USAGE_TEXT[7] = f"[up][down] delay: {MS_DELAY}"
+
         elif keys[pygame.K_RIGHT]:
-            ARRAY_SIZE += 10
-            USAGE_TEXT[8] = f"[>][<] Size: {ARRAY_SIZE}"
-            array = generate_array(MIN_VAL, MAX_VAL, ARRAY_SIZE)
+            if ARRAY_SIZE_INDEX < len(ARRAY_SIZES) - 1:
+                ARRAY_SIZE_INDEX += 1
+                ARRAY_SIZE = ARRAY_SIZES[ARRAY_SIZE_INDEX]
+                USAGE_TEXT[8] = f"[>][<] Size: {ARRAY_SIZE}"
+                array = generate_array(MIN_VAL, MAX_VAL, ARRAY_SIZE)
+
         elif keys[pygame.K_LEFT]:
-            ARRAY_SIZE -= 10
-            USAGE_TEXT[8] = f"[>][<] Size: {ARRAY_SIZE}"
-            array = generate_array(MIN_VAL, MAX_VAL, ARRAY_SIZE)
+            if ARRAY_SIZE_INDEX > 0:
+                ARRAY_SIZE_INDEX -= 1
+                ARRAY_SIZE = ARRAY_SIZES[ARRAY_SIZE_INDEX]
+                USAGE_TEXT[8] = f"[>][<] Size: {ARRAY_SIZE}"
+                array = generate_array(MIN_VAL, MAX_VAL, ARRAY_SIZE)
     draw_array(array)
