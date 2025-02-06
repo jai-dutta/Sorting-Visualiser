@@ -26,7 +26,7 @@ USAGE_TEXT = [
     "[m] merge sort",
     "[q] quick sort",
     f"[up][down] delay: {MS_DELAY}",
-    f"[+][-] Size: {ARRAY_SIZE}"
+    f"[<][>] Size: {ARRAY_SIZE}"
 ]
 
 
@@ -233,13 +233,13 @@ while running:
             if ARRAY_SIZE_INDEX < len(ARRAY_SIZES) - 1:
                 ARRAY_SIZE_INDEX += 1
                 ARRAY_SIZE = ARRAY_SIZES[ARRAY_SIZE_INDEX]
-                USAGE_TEXT[8] = f"[>][<] Size: {ARRAY_SIZE}"
+                USAGE_TEXT[8] = f"[<][>] Size: {ARRAY_SIZE}"
                 array = generate_array(MIN_VAL, MAX_VAL, ARRAY_SIZE)
 
         elif keys[pygame.K_LEFT]:
             if ARRAY_SIZE_INDEX > 0:
                 ARRAY_SIZE_INDEX -= 1
                 ARRAY_SIZE = ARRAY_SIZES[ARRAY_SIZE_INDEX]
-                USAGE_TEXT[8] = f"[>][<] Size: {ARRAY_SIZE}"
+                USAGE_TEXT[8] = f"[<][>] Size: {ARRAY_SIZE}"
                 array = generate_array(MIN_VAL, MAX_VAL, ARRAY_SIZE)
     draw_array(array)
