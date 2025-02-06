@@ -74,5 +74,4 @@ Different colors are used to highlight important elements during the sorting pro
 Feel free to fork this repository and submit pull requests with improvements or additional features. Some possible enhancements could include:
 - Additional sorting algorithms
 - More visualization options
-- Performance optimizations
-- Additional array size options
+- Performance optimizations 
