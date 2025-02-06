@@ -7,7 +7,7 @@ pygame.font.init()
 pygame.display.set_caption('Sorting Visualiser')
 
 # Constants
-ARRAY_SIZES = [50, 125, 200, 250, 500]
+ARRAY_SIZES = [15, 25, 50, 125, 200, 250, 500, 1000]
 ARRAY_SIZE_INDEX = 2
 ARRAY_SIZE = ARRAY_SIZES[ARRAY_SIZE_INDEX]
 MS_DELAY = 1
